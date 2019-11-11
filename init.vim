@@ -40,9 +40,9 @@ set number
 set relativenumber
 set cursorline
 set noexpandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set autoindent
 set list
 set listchars=tab:\|\ ,trail:▫
@@ -110,8 +110,8 @@ let g:terminal_color_14  = '#9AEDFE'
 " === Basic Mappings
 " ===
 " Set <LEADER> as <SPACE>, ; as :
-let mapleader=" "
-noremap ; :
+"let mapleader=" "
+"noremap ; :
 
 " Save & quit
 noremap Q :q<CR>
@@ -119,16 +119,18 @@ noremap S :w<CR>
 
 " Open the vimrc file anytime
 noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
+noremap <LEADER>x :set splitbelow<cr>:!go test % -v<CR>
+
 
 " Open Startify
 noremap <LEADER>st :Startify<CR>
 
 " Undo operations
-noremap l u
+"noremap l u
 
 " Insert Key
-noremap k i
-noremap K I
+"noremap k i
+"noremap K I
 
 " make Y to copy till the end of the line
 nnoremap Y y$
@@ -162,26 +164,26 @@ noremap <silent> <LEADER>o za
 " < n   i >
 "     e
 "     v
-noremap <silent> u k
-noremap <silent> n h
-noremap <silent> e j
-noremap <silent> i l
+"noremap <silent> u k
+"noremap <silent> n h
+"noremap <silent> e j
+"noremap <silent> i l
 
 " U/E keys for 5 times u/e (faster navigation)
 noremap <silent> U 5k
 noremap <silent> E 5j
 
 " N key: go to the start of the line
-noremap <silent> N 0
+"noremap <silent> N 0
 " I key: go to the end of the line
-noremap <silent> I $
+"noremap <silent> I $
 
 " Faster in-line navigation
 noremap W 5w
 noremap B 5b
 
 " set h (same as n, cursor left) to 'end of word'
-noremap h e
+"noremap h e
 
 " Ctrl + U or E will move up/down the view port without moving the cursor
 noremap <C-U> 5<C-y>
@@ -202,7 +204,6 @@ noremap <LEADER>u <C-w>k
 noremap <LEADER>e <C-w>j
 noremap <LEADER>n <C-w>h
 noremap <LEADER>i <C-w>l
-
 " Disable the default s key
 noremap s <nop>
 
@@ -263,7 +264,7 @@ nnoremap \p 1<C-G>
 inoremap <C-u> <ESC>lx$p
 
 " Opening a terminal window
-noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
+noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:terminal <CR>
 
 " Press space twice to jump to the next '<++>' and edit it
 noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
@@ -286,11 +287,11 @@ noremap <LEADER>- :lN<CR>
 noremap <LEADER>= :lne<CR>
 
 " Compile function
-noremap r :call CompileRunGcc()<CR>
+noremap <leader>z :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
-		exec "!g++ % -o %<"
+		exec "!gcc % -o %<"
 		exec "!time ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
@@ -322,10 +323,20 @@ func! CompileRunGcc()
 endfunc
 
 
-
 " ===
 " === Install Plugins with Vim-Plug
 " ===
+
+" 缩进可视化插件 Indent Guides
+" 随 vim 自启动
+let g:indent_guides_enable_on_vim_startup=1
+" 从第二层开始可视化显示缩进
+let g:indent_guides_start_level=2
+" 色块宽度
+let g:indent_guides_guide_size=1
+" 快捷键 i 开/关缩进可视化
+nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -336,8 +347,10 @@ Plug 'theniceboy/vim-calc'
 
 " Pretty Dress
 Plug 'theniceboy/eleline.vim'
-Plug 'bling/vim-bufferline'
-"Plug 'liuchengxu/space-vim-theme'
+"Plug 'bling/vim-bufferline'
+Plug 'liuchengxu/space-vim-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 "Plug 'rakr/vim-one'
@@ -348,6 +361,8 @@ Plug 'ajmwagar/vim-deus'
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'chrisbra/Colorizer' " Show colors with :ColorHighlight
+Plug 'itchyny/vim-cursorword'
+Plug 'lfv89/vim-interestingwords'
 
 " File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -366,6 +381,7 @@ Plug 'dense-analysis/ale'
 
 " Auto Complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Valloric/YouCompleteMe'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -454,6 +470,8 @@ Plug 'itchyny/calendar.vim'
 " Other visual enhancement
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'nathanaelkane/vim-indent-guides'
 " Other useful utilities
 Plug 'tpope/vim-eunuch' " do stuff like :SudoWrite
 
@@ -462,7 +480,6 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'roxma/nvim-yarp'
 Plug 'rbgrouleff/bclose.vim' " For ranger.vim
-
 call plug#end()
 
 " experimental
@@ -471,6 +488,60 @@ set regexpengine=1
 
 
 
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_colorscheme='solarized256'
+"colorscheme molokai
+set t_CO=256
+" <<
+
+" 模板补全
+" UltiSnips 的 tab 键与 YCM 冲突，重新设定
+"let g:UltiSnipsSnippetDirectories=["mysnippets"]
+"let g:UltiSnipsExpandTrigger="<leader><tab>"
+"let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+
+" >>
+" YCM 补全
+
+" YCM 补全菜单配色
+" 菜单
+highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+" 选中项
+highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
+
+" 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
+
+" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+let g:ycm_confirm_extra_conf=0
+
+" 开启 YCM 标签补全引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+"" 引入 C++ 标准库 tags
+set tags+=/usr/include/tags
+set tags+=/usr/include/c++/4.8/tags
+
+
+" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+inoremap <leader>; <C-x><C-o>
+
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
+
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
+
+" <<
+
+
+"
 " ===
 " === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
 " ===
@@ -507,13 +578,14 @@ hi NonText ctermfg=gray guifg=grey10
 
 " ===================== Start of Plugin Settings =====================
 
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 
 
 " ===
 " === NERDTree
 " ===
 noremap tt :NERDTreeToggle<CR>
+noremap <leader>fl :NERDTreeToggle<CR>
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMapUpdir = "N"
 let NERDTreeMapUpdirKeepOpen = "n"
@@ -595,10 +667,10 @@ let g:ale_linters = {
 			\ 'c' : ['ccls']
 			\}
 let g:ale_cpp_ccls_init_options = {
-\   'cache': {
-\       'directory': '/tmp/ccls/cache'
-\   }
-\ }
+			\   'cache': {
+			\       'directory': '/tmp/ccls/cache'
+			\   }
+			\ }
 let g:ale_c_gcc_executable = '/usr/bin/gcc'
 "let g:ale_c_gcc_options="-Wall -O2"
 
@@ -655,6 +727,7 @@ noremap <C-p> :FZF<CR>
 " ===
 let g:ctrlp_map = ''
 let g:ctrlp_cmd = 'CtrlP'
+nnoremap <Leader>sp :CtrlSF<CR>
 
 " ===
 " === vim-signature
@@ -737,11 +810,11 @@ noremap <LEADER>a :call Calc()<CR>
 " ===
 "let g:bullets_set_mappings = 0
 let g:bullets_enabled_file_types = [
-    \ 'markdown',
-    \ 'text',
-    \ 'gitcommit',
-    \ 'scratch'
-    \]
+			\ 'markdown',
+			\ 'text',
+			\ 'gitcommit',
+			\ 'scratch'
+			\]
 
 
 " ===
@@ -783,9 +856,9 @@ noremap <LEADER>gi :FzfGitignore<CR>
 " ===
 let g:tex_flavor = "latex"
 inoremap <c-n> <nop>
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-e>"
-let g:UltiSnipsJumpBackwardTrigger="<c-n>"
+let g:UltiSnipsExpandTrigger="<leader><tab>"
+let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+let g:UltiSnipsJumpBackwardTrigger="<ctrl-e>"
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/Ultisnips/', 'UltiSnips']
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap <c-r>
 
