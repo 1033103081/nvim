@@ -11,6 +11,7 @@
 " fmoralesc/worldslice
 " SidOfc/mkdx
 
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " ===
 " === Auto load for first time uses
@@ -110,7 +111,7 @@ let g:terminal_color_14  = '#9AEDFE'
 " === Basic Mappings
 " ===
 " Set <LEADER> as <SPACE>, ; as :
-"let mapleader=" "
+let mapleader=" "
 "noremap ; :
 
 " Save & quit
@@ -169,9 +170,17 @@ noremap <silent> <LEADER>o za
 "noremap <silent> e j
 "noremap <silent> i l
 
+""noremap i k
+""noremap j h
+""noremap k j
+""noremap h i
+""noremap I 5k
+""noremap K 5j
+""noremap J 5h
+""noremap L 5l
+"noremap H I
+
 " U/E keys for 5 times u/e (faster navigation)
-noremap <silent> U 5k
-noremap <silent> E 5j
 
 " N key: go to the start of the line
 "noremap <silent> N 0
@@ -186,32 +195,34 @@ noremap B 5b
 "noremap h e
 
 " Ctrl + U or E will move up/down the view port without moving the cursor
-noremap <C-U> 5<C-y>
-noremap <C-E> 5<C-e>
+noremap <C-I> 5<C-y>
+noremap <C-K> 5<C-e>
 
 " ===
 " === Insert Mode Cursor Movement
 " ===
-inoremap <C-a> <ESC>A
+"inoremap <C-a> <ESC>A
+inoremap <C-h> <ESC>A
 
 
 " ===
 " === Window management
 " ===
 " Use <space> + new arrow keys for moving the cursor around windows
-noremap <LEADER>w <C-w>w
-noremap <LEADER>u <C-w>k
-noremap <LEADER>e <C-w>j
-noremap <LEADER>n <C-w>h
-noremap <LEADER>i <C-w>l
+noremap <LEADER>k <C-w>k
+noremap <LEADER>j <C-w>j
+noremap <LEADER>h <C-w>h
+noremap <LEADER>l <C-w>l
 " Disable the default s key
 noremap s <nop>
 
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap se :set splitbelow<CR>:split<CR>
-noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap si :set splitright<CR>:vsplit<CR>
+" spilt k up
+noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
+" split j below
+noremap sj :set splitbelow<CR>:split<CR>
+noremap sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
 
 " Resize splits with arrow keys
 noremap <up> :res +5<CR>
@@ -346,7 +357,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'theniceboy/vim-calc'
 
 " Pretty Dress
-Plug 'theniceboy/eleline.vim'
+Plug 'vim-airline/vim-airline'
+"Plug 'theniceboy/eleline.vim'
 "Plug 'bling/vim-bufferline'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'altercation/vim-colors-solarized'
@@ -381,7 +393,7 @@ Plug 'dense-analysis/ale'
 
 " Auto Complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'Valloric/YouCompleteMe'
+
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -760,7 +772,8 @@ let g:SignatureMap = {
 " ===
 " === Undotree
 " ===
-noremap L :UndotreeToggle<CR>
+"noremap L :UndotreeToggle<CR>
+nmap <Leader>fl :NERDTreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -821,6 +834,7 @@ let g:bullets_enabled_file_types = [
 " === Vista.vim
 " ===
 noremap <silent> T :Vista!!<CR>
+noremap <silent> ilt :Vista!!<CR>
 noremap <silent> <C-t> :Vista finder<CR>
 function! NearestMethodOrFunction() abort
 	return get(b:, 'vista_nearest_method_or_function', '')
