@@ -12,7 +12,6 @@
 " SidOfc/mkdx
 
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
 " ===
 " === Auto load for first time uses
 " ===
@@ -298,18 +297,18 @@ noremap <LEADER>- :lN<CR>
 noremap <LEADER>= :lne<CR>
 
 " Compile function
-noremap <leader>z :call CompileRunGcc()<CR>
+noremap <leader>c :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
 		exec "!gcc % -o %<"
-		exec "!time ./%<"
+		exec "!timeout 30  ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
 		exec "!g++ -std=c++11 % -Wall -o %<"
 		:sp
 		:res -15
-		:term ./%<
+		:term timeout 30 ./%<
 	elseif &filetype == 'java'
 		exec "!javac %"
 		exec "!time java %<"
@@ -348,13 +347,11 @@ let g:indent_guides_guide_size=1
 " 快捷键 i 开/关缩进可视化
 nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
-
+let g:airline#extensions#tabline#enabled = 1
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'junegunn/goyo.vim'
 
-" Testing my own plugin
-Plug 'theniceboy/vim-calc'
 
 " Pretty Dress
 Plug 'vim-airline/vim-airline'
@@ -982,7 +979,7 @@ autocmd Filetype cs nnoremap <buffer> gr :OmniSharpFindUsages<CR>
 autocmd Filetype cs nnoremap <buffer> gy :OmniSharpTypeLookup<CR>
 autocmd Filetype cs nnoremap <buffer> ga :OmniSharpGetCodeActions<CR>
 autocmd Filetype cs nnoremap <buffer> <LEADER>rn :OmniSharpRename<CR><C-N>:res +5<CR>
-
+"autocmd FileType * NERDTreeToggle
 sign define OmniSharpCodeActions text=💡
 
 augroup OSCountCodeActions
@@ -1082,3 +1079,4 @@ if has_machine_specific_file == 0
 	exec "e ~/.config/nvim/_machine_specific.vim"
 endif
 
+"NERDTreeToggle
