@@ -297,7 +297,9 @@ noremap <LEADER>- :lN<CR>
 noremap <LEADER>= :lne<CR>
 
 " Compile function
-noremap <leader>c :call CompileRunGcc()<CR>
+" There should be a command called timeout In MacOs X
+" $ brew install coreutils;
+noremap <leader>dd :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
