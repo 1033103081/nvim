@@ -1,4 +1,4 @@
-" __  ____   __  _   ___     _____ __  __ ____   ____
+" __  ____   __  _   ___	 _____ __  __ ____   ____
 "|  \/  \ \ / / | \ | \ \   / /_ _|  \/  |  _ \ / ___|
 "| |\/| |\ V /  |  \| |\ \ / / | || |\/| | |_) | |
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___
@@ -149,60 +149,20 @@ noremap <LEADER><CR> :nohlsearch<CR>
 noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
 
 " Space to Tab
-noremap <LEADER>tt :%s/    /\t/g
+noremap <LEADER>tt :%s/	/\t/g
 
 " Folding
 noremap <silent> <LEADER>o za
-
-
-" ===
-" === Cursor Movement
-" ===
-" New cursor movement (the default arrow keys are used for resizing windows)
-"     ^
-"     u
-" < n   i >
-"     e
-"     v
-"noremap <silent> u k
-"noremap <silent> n h
-"noremap <silent> e j
-"noremap <silent> i l
-
-""noremap i k
-""noremap j h
-""noremap k j
-""noremap h i
-""noremap I 5k
-""noremap K 5j
-""noremap J 5h
-""noremap L 5l
-"noremap H I
-
-" U/E keys for 5 times u/e (faster navigation)
-
-" N key: go to the start of the line
-"noremap <silent> N 0
-" I key: go to the end of the line
-"noremap <silent> I $
 
 " Faster in-line navigation
 noremap W 5w
 noremap B 5b
 
-" set h (same as n, cursor left) to 'end of word'
-"noremap h e
-
-" Ctrl + U or E will move up/down the view port without moving the cursor
-noremap <C-I> 5<C-y>
-noremap <C-K> 5<C-e>
 
 " ===
 " === Insert Mode Cursor Movement
 " ===
 "inoremap <C-a> <ESC>A
-inoremap <C-h> <ESC>A
-
 
 " ===
 " === Window management
@@ -239,7 +199,7 @@ noremap srh <C-w>b<C-w>K
 noremap srv <C-w>b<C-w>H
 
 " Press <SPACE> + q to close the window below the current window
-noremap <LEADER>q <C-w>j:q<CR>
+"noremap <LEADER>q <C-w>j:q<CR>
 
 
 " ===
@@ -251,8 +211,8 @@ noremap tu :tabe<CR>
 noremap tn :-tabnext<CR>
 noremap ti :+tabnext<CR>
 " Move the tabs with tmn and tmi
-noremap tmn :-tabmove<CR>
-noremap tmi :+tabmove<CR>
+"noremap tmn :-tabmove<CR>
+"noremap tmi :+tabmove<CR>
 
 
 " ===
@@ -270,8 +230,8 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 " \p to show the current buffer file path
 nnoremap \p 1<C-G>
 
-" Move the next character to the end of the line with ctrl+9
-inoremap <C-u> <ESC>lx$p
+" Move the next character to the end of the line with ctrl+u
+"inoremap <C-u> <ESC>lx$p
 
 " Opening a terminal window
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:terminal <CR>
@@ -341,11 +301,11 @@ endfunc
 
 " 缩进可视化插件 Indent Guides
 " 随 vim 自启动
-let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_enable_on_vim_startup=1
 " 从第二层开始可视化显示缩进
-let g:indent_guides_start_level=2
+"let g:indent_guides_start_level=2
 " 色块宽度
-let g:indent_guides_guide_size=1
+"let g:indent_guides_guide_size=1
 " 快捷键 i 开/关缩进可视化
 nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
@@ -503,54 +463,6 @@ let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme='solarized256'
 "colorscheme molokai
 set t_CO=256
-" <<
-
-" 模板补全
-" UltiSnips 的 tab 键与 YCM 冲突，重新设定
-"let g:UltiSnipsSnippetDirectories=["mysnippets"]
-"let g:UltiSnipsExpandTrigger="<leader><tab>"
-"let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
-
-" >>
-" YCM 补全
-
-" YCM 补全菜单配色
-" 菜单
-highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-" 选中项
-highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
-
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
-
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
-let g:ycm_confirm_extra_conf=0
-
-" 开启 YCM 标签补全引擎
-let g:ycm_collect_identifiers_from_tags_files=1
-"" 引入 C++ 标准库 tags
-set tags+=/usr/include/tags
-set tags+=/usr/include/c++/4.8/tags
-
-
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <leader>; <C-x><C-o>
-
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-set completeopt-=preview
-
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
-
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
-
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
-
-" <<
-
 
 "
 " ===
@@ -679,7 +591,7 @@ let g:ale_linters = {
 			\}
 let g:ale_cpp_ccls_init_options = {
 			\   'cache': {
-			\       'directory': '/tmp/ccls/cache'
+			\	   'directory': '/tmp/ccls/cache'
 			\   }
 			\ }
 let g:ale_c_gcc_executable = '/usr/bin/gcc'
@@ -810,7 +722,7 @@ noremap <LEADER>fr :Farp<CR>
 " ===
 " === vim-calc
 " ===
-noremap <LEADER>a :call Calc()<CR>
+"noremap <LEADER>a :call Calc()<CR>
 " Testing
 "if !empty(glob('~/Github/vim-calc/vim-calc.vim'))
 "source ~/Github/vim-calc/vim-calc.vim
@@ -900,32 +812,6 @@ nnoremap gv :GV<CR>
 
 
 " ===
-" === vim-calendar
-" ===
-noremap \c :Calendar -position=here<CR>
-noremap \\ :Calendar -view=clock -position=here<CR>
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-augroup calendar-mappings
-	autocmd!
-	" diamond cursor
-	autocmd FileType calendar nmap <buffer> u <Plug>(calendar_up)
-	autocmd FileType calendar nmap <buffer> n <Plug>(calendar_left)
-	autocmd FileType calendar nmap <buffer> e <Plug>(calendar_down)
-	autocmd FileType calendar nmap <buffer> i <Plug>(calendar_right)
-	autocmd FileType calendar nmap <buffer> <c-u> <Plug>(calendar_move_up)
-	autocmd FileType calendar nmap <buffer> <c-n> <Plug>(calendar_move_left)
-	autocmd FileType calendar nmap <buffer> <c-e> <Plug>(calendar_move_down)
-	autocmd FileType calendar nmap <buffer> <c-i> <Plug>(calendar_move_right)
-	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_start_insert)
-	autocmd FileType calendar nmap <buffer> K <Plug>(calendar_start_insert_head)
-	" unmap <C-n>, <C-p> for other plugins
-	autocmd FileType calendar nunmap <buffer> <C-n>
-	autocmd FileType calendar nunmap <buffer> <C-p>
-augroup END
-
-
-" ===
 " === Anzu
 " ===
 set statusline=%{anzu#search_status()}
@@ -939,25 +825,25 @@ nnoremap - N
 let g:go_textobj_enabled = 0
 let g:go_auto_type_info = 1
 "let g:go_def_mapping_enabled = 1
-let g:go_highlight_array_whitespace_error    = 1
-let g:go_highlight_build_constraints         = 1
-let g:go_highlight_chan_whitespace_error     = 1
-let g:go_highlight_extra_types               = 1
-let g:go_highlight_fields                    = 1
-let g:go_highlight_format_strings            = 1
-let g:go_highlight_function_calls            = 1
-let g:go_highlight_function_parameters       = 1
-let g:go_highlight_functions                 = 1
-let g:go_highlight_generate_tags             = 1
-let g:go_highlight_methods                   = 1
-let g:go_highlight_operators                 = 1
-let g:go_highlight_space_tab_error           = 1
-let g:go_highlight_string_spellcheck         = 1
-let g:go_highlight_structs                   = 1
+let g:go_highlight_array_whitespace_error	= 1
+let g:go_highlight_build_constraints		 = 1
+let g:go_highlight_chan_whitespace_error	 = 1
+let g:go_highlight_extra_types			   = 1
+let g:go_highlight_fields					= 1
+let g:go_highlight_format_strings			= 1
+let g:go_highlight_function_calls			= 1
+let g:go_highlight_function_parameters	   = 1
+let g:go_highlight_functions				 = 1
+let g:go_highlight_generate_tags			 = 1
+let g:go_highlight_methods				   = 1
+let g:go_highlight_operators				 = 1
+let g:go_highlight_space_tab_error		   = 1
+let g:go_highlight_string_spellcheck		 = 1
+let g:go_highlight_structs				   = 1
 let g:go_highlight_trailing_whitespace_error = 1
-let g:go_highlight_types                     = 1
-let g:go_highlight_variable_assignments      = 0
-let g:go_highlight_variable_declarations     = 0
+let g:go_highlight_types					 = 1
+let g:go_highlight_variable_assignments	  = 0
+let g:go_highlight_variable_declarations	 = 0
 
 
 " ===
