@@ -297,7 +297,7 @@ noremap <LEADER>- :lN<CR>
 noremap <LEADER>= :lne<CR>
 
 " Compile function
-noremap <leader>c :call CompileRunGcc()<CR>
+noremap <leader>dd :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
