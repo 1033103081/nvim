@@ -463,11 +463,6 @@ set regexpengine=1
 
 
 
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme='solarized256'
-"colorscheme molokai
-set t_CO=256
-
 "
 " ===
 " === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
@@ -504,9 +499,6 @@ hi NonText ctermfg=gray guifg=grey10
 "hi SpecialKey ctermfg=blue guifg=grey70
 
 " ===================== Start of Plugin Settings =====================
-
-let g:airline_powerline_fonts = 1
-
 
 " ===
 " === NERDTree
