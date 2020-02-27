@@ -455,7 +455,40 @@ Plug 'rbgrouleff/bclose.vim' " For ranger.vim
 
 " Other visual enhancement
 "Plug 'ryanoasis/vim-devicons'
+"
+Plug 'ludovicchabant/vim-gutentags'
+"`:SignifyDiff`，可以左右分屏对比提交前后记录
+"https://www.zhihu.com/question/47691414
+Plug 'mhinz/vim-signify'
 call plug#end()
+
+set tags=./.tags;,.tags
+
+
+"最后啰嗦两句，少用 CTRL-] 直接在当前窗口里跳转到定义，多使用 CTRL-W ] 用新窗口打开并查看光标下符号的定义，或者 CTRL-W } 使用 preview 窗口预览光标下符号的定义。
+"
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+
+
+
 
 " experimental
 set lazyredraw
