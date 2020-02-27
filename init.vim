@@ -5,17 +5,28 @@
 "|_|  |_| |_|   |_| \_|  \_/  |___|_|  |_|_| \_\\____|
 
 " Author: @theniceboy
+" Modified by Jack Markrest
 
 " Checkout-list
 " vim-esearch
 " fmoralesc/worldslice
 " SidOfc/mkdx
 
+"保存配置时文件自动重新加载
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " ===
 " === Auto load for first time uses
 " ===
+"
+if !executable('git')
+	echo "Git is not avliable in your os OR isn't in your PATH"
+endif
+
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	if !executable('curl')
+		echo "curl is not avilable in your os OR isn't in your PATH"
+		exit -1
+	endif
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -46,7 +57,7 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 set list
-set listchars=tab:\|\ ,trail:▫
+"set listchars=tab:\|\ ,trail:
 set scrolloff=4
 set ttimeoutlen=0
 set notimeout
@@ -154,6 +165,7 @@ noremap <LEADER>tt :%s/	/\t/g
 
 " Folding
 noremap <silent> <LEADER>o za
+
 
 " Faster in-line navigation
 noremap W 5w
@@ -302,19 +314,10 @@ endfunc
 
 " 缩进可视化插件 Indent Guides
 " 随 vim 自启动
-"let g:indent_guides_enable_on_vim_startup=1
-" 从第二层开始可视化显示缩进
-"let g:indent_guides_start_level=2
-" 色块宽度
-"let g:indent_guides_guide_size=1
-" 快捷键 i 开/关缩进可视化
-nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 let g:airline#extensions#tabline#enabled = 1
-call plug#begin('~/.config/nvim/plugged')
 let g:airline_powerline_fonts=1
-Plug 'junegunn/goyo.vim'
-
+call plug#begin('~/.config/nvim/plugged')
 
 " Pretty Dress
 Plug 'vim-airline/vim-airline'
@@ -339,9 +342,10 @@ Plug 'itchyny/vim-cursorword'
 Plug 'lfv89/vim-interestingwords'
 
 " File navigation
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf.vim'
 "Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf'
 Plug 'francoiscabrol/ranger.vim'
@@ -351,6 +355,8 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'liuchengxu/vista.vim'
 
 " Error checking
+"
+Plug 'Shougo/deoplete.nvim'
 Plug 'dense-analysis/ale'
 
 " Auto Complete
@@ -373,11 +379,12 @@ Plug 'junegunn/gv.vim' " gv (normal) to show git log
 Plug 'airblade/vim-gitgutter'
 
 " Tex
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
 
 " CSharp
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'ctrlpvim/ctrlp.vim' , { 'for': ['cs', 'vim-plug'] } " omnisharp-vim dependency
+"Plug 'OmniSharp/omnisharp-vim'
+"Plug 'ctrlpvim/ctrlp.vim' , { 'for': ['cs', 'vim-plug'] } " omnisharp-vim dependency
+"Plug 'ctrlpvim/ctrlp.vim'
 
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 Plug 'elzr/vim-json'
@@ -406,7 +413,7 @@ Plug 'theniceboy/bullets.vim'
 " Editor Enhancement
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
+Plug 'scrooloose/nerdcommenter' " in <LEADER>cc to comment current line ,<LEADER>cu to uncomment current line
 Plug 'AndrewRadev/switch.vim' " gs to switch
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
@@ -415,15 +422,13 @@ Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
 Plug 'easymotion/vim-easymotion'
 
 " Formatter
-Plug 'Chiel92/vim-autoformat'
-
-" For general writing
+Plug 'Chiel92/vim-autoformat' "\f to autoformat the file 
+"For general writing
 "Plug 'reedes/vim-wordy'
 "Plug 'ron89/thesaurus_query.vim'
 
 " Bookmarks
 Plug 'kshenoy/vim-signature'
-
 " Find & Replace
 Plug 'wsdjeg/FlyGrep.vim' " Ctrl+f (normal) to find file content
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
@@ -439,7 +444,7 @@ Plug 'mhinz/vim-startify'
 "Plug 'jceb/vim-orgmode'
 
 " Vim Applications
-Plug 'itchyny/calendar.vim'
+"Plug 'itchyny/calendar.vim'
 
 
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -484,7 +489,7 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 " 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
-   silent! call mkdir(s:vim_tags, 'p')
+	silent! call mkdir(s:vim_tags, 'p')
 endif
 
 
@@ -677,9 +682,9 @@ noremap <C-p> :FZF<CR>
 " ===
 " === CTRLP (Dependency for omnisharp)
 " ===
-let g:ctrlp_map = ''
-let g:ctrlp_cmd = 'CtrlP'
-nnoremap <Leader>sp :CtrlSF<CR>
+"let g:ctrlp_map = ''
+"let g:ctrlp_cmd = 'CtrlP'
+"nnoremap <Leader>sp :CtrlSF<CR>
 
 " ===
 " === vim-signature
@@ -748,14 +753,6 @@ noremap <LEADER>fa :F	%<left><left>
 noremap <LEADER>fr :Farp<CR>
 
 
-" ===
-" === vim-calc
-" ===
-"noremap <LEADER>a :call Calc()<CR>
-" Testing
-"if !empty(glob('~/Github/vim-calc/vim-calc.vim'))
-"source ~/Github/vim-calc/vim-calc.vim
-"endif
 
 
 " ===
@@ -883,21 +880,21 @@ nnoremap \f :Autoformat<CR>
 " ===
 " === OmniSharp
 " ===
-let g:OmniSharp_typeLookupInPreview = 1
-let g:omnicomplete_fetch_full_documentation = 1
+"let g:OmniSharp_typeLookupInPreview = 1
+"let g:omnicomplete_fetch_full_documentation = 1
 
-let g:OmniSharp_server_use_mono = 1
-let g:OmniSharp_server_stdio = 1
-let g:OmniSharp_highlight_types = 2
-let g:OmniSharp_selector_ui = 'ctrlp'
+"let g:OmniSharp_server_use_mono = 1
+"let g:OmniSharp_server_stdio = 1
+"let g:OmniSharp_highlight_types = 2
+"let g:OmniSharp_selector_ui = 'ctrlp'
 
-autocmd Filetype cs nnoremap <buffer> gd :OmniSharpPreviewDefinition<CR>
-autocmd Filetype cs nnoremap <buffer> gr :OmniSharpFindUsages<CR>
-autocmd Filetype cs nnoremap <buffer> gy :OmniSharpTypeLookup<CR>
-autocmd Filetype cs nnoremap <buffer> ga :OmniSharpGetCodeActions<CR>
-autocmd Filetype cs nnoremap <buffer> <LEADER>rn :OmniSharpRename<CR><C-N>:res +5<CR>
-"autocmd FileType * NERDTreeToggle
-sign define OmniSharpCodeActions text=💡
+"autocmd Filetype cs nnoremap <buffer> gd :OmniSharpPreviewDefinition<CR>
+"autocmd Filetype cs nnoremap <buffer> gr :OmniSharpFindUsages<CR>
+"autocmd Filetype cs nnoremap <buffer> gy :OmniSharpTypeLookup<CR>
+"autocmd Filetype cs nnoremap <buffer> ga :OmniSharpGetCodeActions<CR>
+"autocmd Filetype cs nnoremap <buffer> <LEADER>rn :OmniSharpRename<CR><C-N>:res +5<CR>
+""autocmd FileType * NERDTreeToggle
+"sign define OmniSharpCodeActions text=💡
 
 augroup OSCountCodeActions
 	autocmd!
@@ -931,35 +928,6 @@ let g:colorizer_syntax = 1
 
 
 " ===
-" === vim-floaterm
-" ===
-"nnoremap ? :FloatermToggle<CR>
-"let g:floaterm_position = 'center'
-"let g:floaterm_winblend = 20
-"let g:floaterm_height = winheight(0)/3*2
-"let g:floaterm_width = &columns/3*2
-
-
-" ===
-" === vim-clap
-" ===
-""nnoremap ,c :Clap bcommits<CR>
-""nnoremap ,l :Clap blines<CR>
-"nnoremap ,b :Clap buffers<CR>
-"nnoremap ,C :Clap colors<CR>
-""nnoremap ,h :Clap hist<CR>
-"nnoremap ,c :Clap commits<CR>
-""nnoremap ,f :Clap files<CR>
-"nnoremap ,t :Clap filetypes<CR>
-"nnoremap ,g :Clap gfiles<CR>
-""nnoremap , :Clap grep<CR>
-""nnoremap ,a :Clap jumps<CR>
-""nnoremap , :Clap marks<CR>
-""nnoremap ,t :Clap tags<CR>
-"nnoremap ,w :Clap window<CR>
-
-
-" ===
 " === vim-easymotion
 " ===
 let g:EasyMotion_smartcase = 1
@@ -977,10 +945,6 @@ map \; <Plug>(easymotion-prefix)
 "nmap 'w <Plug>(easymotion-overwin-w)
 
 
-" ===
-" === goyo
-" ===
-map <LEADER>gy :Goyo<CR>
 
 
 
@@ -995,5 +959,4 @@ exec "nohlsearch"
 if has_machine_specific_file == 0
 	exec "e ~/.config/nvim/_machine_specific.vim"
 endif
-
 "NERDTreeToggle
