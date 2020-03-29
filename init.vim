@@ -279,7 +279,7 @@ endfunction
 noremap <leader>dd :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
-	if !empty(FindRootDirectory() . "/Makefile")
+	if empty(FindRootDirectory()."/Makefile")
 		:Rooter
 		make clean
 		make debug
