@@ -272,10 +272,18 @@ noremap <LEADER>= :lne<CR>
 " Compile function
 " There should be a command called timeout In MacOs X
 " $ brew install coreutils;
+"
+function! ProjectRootDirectory()
+	return  fnamemodify(finddir('.git',".;"),':h')
+endfunction
 noremap <leader>dd :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
-	if &filetype == 'c'
+	if !empty(FindRootDirectory() . "/Makefile")
+		:Rooter
+		make clean
+		make debug
+	elseif &filetype == 'c'
 		exec "!gcc % -o %<"
 		exec "!timeout 30  ./%<"
 	elseif &filetype == 'cpp'
@@ -317,6 +325,7 @@ endfunc
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
+let g:rooter_manual_only=1
 call plug#begin('~/.config/nvim/plugged')
 
 " Pretty Dress
@@ -345,6 +354,7 @@ Plug 'lfv89/vim-interestingwords'
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-rooter'
 "Plug 'junegunn/fzf.vim'
 "Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf'
