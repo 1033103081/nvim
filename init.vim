@@ -273,25 +273,23 @@ noremap <LEADER>= :lne<CR>
 " There should be a command called timeout In MacOs X
 " $ brew install coreutils;
 "
-function! ProjectRootDirectory()
-	return  fnamemodify(finddir('.git',".;"),':h')
+noremap <leader>dm :call Domake()<CR>
+function! Domake()
+	:Rooter
+	make clean
+	make debug
 endfunction
+
 noremap <leader>dd :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
-	if empty(FindRootDirectory()."/Makefile")
-		:Rooter
-		make clean
-		make debug
-	elseif &filetype == 'c'
+	if &filetype == 'c'
 		exec "!gcc % -o %<"
 		exec "!timeout 30  ./%<"
 	elseif &filetype == 'cpp'
 		set splitbelow
 		exec "!g++ -std=c++11 % -Wall -o %<"
-		:sp
-		:res -15
-		:term timeout 30 ./%<
+		exec "!timeout 30  ./%<"
 	elseif &filetype == 'java'
 		exec "!javac %"
 		exec "!time java %<"
@@ -430,6 +428,7 @@ Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or 
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
 Plug 'easymotion/vim-easymotion'
+"Plug 'skywind3000/asyncrun.vim'
 
 " Formatter
 Plug 'Chiel92/vim-autoformat' "\f to autoformat the file 
