@@ -137,12 +137,6 @@ noremap <LEADER>x :set splitbelow<cr>:!go test % -v<CR>
 " Open Startify
 noremap <LEADER>st :Startify<CR>
 
-" Undo operations
-"noremap l u
-
-" Insert Key
-"noremap k i
-"noremap K I
 
 " make Y to copy till the end of the line
 nnoremap Y y$
@@ -175,7 +169,6 @@ noremap B 5b
 " ===
 " === Insert Mode Cursor Movement
 " ===
-"inoremap <C-a> <ESC>A
 
 " ===
 " === Window management
@@ -211,9 +204,6 @@ noremap sv <C-w>t<C-w>H
 noremap srh <C-w>b<C-w>K
 noremap srv <C-w>b<C-w>H
 
-" Press <SPACE> + q to close the window below the current window
-"noremap <LEADER>q <C-w>j:q<CR>
-
 
 " ===
 " === Tab management
@@ -222,7 +212,7 @@ noremap srv <C-w>b<C-w>H
 noremap tu :tabe<CR>
 " Move around tabs with tn and ti
 noremap tn :-tabnext<CR>
-noremap ti :+tabnext<CR>
+noremap tN :+tabnext<CR>
 " Move the tabs with tmn and tmi
 "noremap tmn :-tabmove<CR>
 "noremap tmi :+tabmove<CR>
@@ -329,14 +319,14 @@ call plug#begin('~/.config/nvim/plugged')
 " Pretty Dress
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'powerline/powerline'
+"Plug 'powerline/powerline'
 "Plug 'theniceboy/eleline.vim'
 "Plug 'bling/vim-bufferline'
-Plug 'liuchengxu/space-vim-theme'
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-Plug 'morhetz/gruvbox'
-Plug 'ayu-theme/ayu-vim'
+"Plug 'liuchengxu/space-vim-theme'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'tomasr/molokai'
+"Plug 'morhetz/gruvbox'
+"Plug 'ayu-theme/ayu-vim'
 "Plug 'rakr/vim-one'
 "Plug 'mhartington/oceanic-next'
 "Plug 'kristijanhusak/vim-hybrid-material'
@@ -786,7 +776,7 @@ function! NearestMethodOrFunction() abort
 	return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
-set statusline+=%{NearestMethodOrFunction()}
+"set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " e.g., more compact: ["▸ ", ""]
