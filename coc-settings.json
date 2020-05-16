@@ -1,8 +1,10 @@
 {
-	"yank.enableCompletion" : false,
-	"diagnostic.virtualText": true,
+	"yank.enableCompletion" : true,
+	"diagnostic.virtualText": false,
 	"codeLens.enable": true,
 	"suggest.detailMaxLength": 60,
+	"pyls.enable":false,
+	"python.jediEnabled":false,
 	"languageserver": {
 		"lua": {
 			"command": "lua-lsp",
