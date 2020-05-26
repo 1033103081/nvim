@@ -7,12 +7,7 @@
 " Author: @theniceboy
 " Modified by Jack Markrest
 
-" Checkout-list
-" vim-esearch
-" fmoralesc/worldslice
-" SidOfc/mkdx
-
-"if !exists('g:vscode')
+if !exists('g:vscode')
 "保存配置时文件自动重新加载
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " ===
@@ -110,7 +105,11 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " === Terminal Behavior
 " ===
 let g:neoterm_autoscroll = 1
+
+"
+"打开vim emulated terminal 即进入输入模式
 autocmd TermOpen term://* startinsert
+"Ctrl+N 进入normal模式
 tnoremap <C-N> <C-\><C-N>
 let g:terminal_color_0   = '#000000'
 let g:terminal_color_1   = '#FF5555'
@@ -141,10 +140,8 @@ noremap S :w<CR>
 
 " Open the vimrc file anytime
 noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
-noremap <LEADER>x :set splitbelow<cr>:!go test % -v<CR>
 
-
-" Open Startify
+" Open Startify App:就是vim 进入现实的app页面
 noremap <LEADER>st :Startify<CR>
 
 
@@ -227,8 +224,8 @@ noremap srv <C-w>b<C-w>H
 " Create a new tab with tu
 noremap tu :tabe<CR>
 " Move around tabs with tn and ti
-noremap tn :-tabnext<CR>
-noremap tN :+tabnext<CR>
+noremap th :-tabnext<CR>
+noremap tl :+tabnext<CR>
 " Move the tabs with tmn and tmi
 "noremap tmn :-tabmove<CR>
 "noremap tmi :+tabmove<CR>
@@ -309,7 +306,10 @@ func! CompileRunGcc()
 	elseif &filetype == 'python'
 		exec "!time python3 %"
 	elseif &filetype == 'html'
-		silent! exec "!chromium % &"
+		"silent! exec "!chromium % &"
+		silent! exec "!/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome % "
+	elseif &filetype == 'javascript'
+		exec "!node %"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -324,47 +324,30 @@ endfunc
 " ===
 " === Install Plugins with Vim-Plug
 " ===
-
-" 缩进可视化插件 Indent Guides
-" 随 vim 自启动
-
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
-let g:rooter_manual_only=1
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+
 call plug#begin('~/.config/nvim/plugged')
 
 " Pretty Dress
 Plug 'theniceboy/eleline.vim'
 Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
-Plug 'bling/vim-bufferline'
-"Plug 'powerline/powerline'
-"Plug 'theniceboy/eleline.vim'
-"Plug 'bling/vim-bufferline'
-"Plug 'liuchengxu/space-vim-theme'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'tomasr/molokai'
-"Plug 'morhetz/gruvbox'
-"Plug 'ayu-theme/ayu-vim'
-"Plug 'rakr/vim-one'
-"Plug 'mhartington/oceanic-next'
-"Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'ajmwagar/vim-deus'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
-"Plug 'chrisbra/Colorizer' " Show colors with :ColorHighlight
-"Plug 'itchyny/vim-cursorword'
-"Plug 'lfv89/vim-interestingwords'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'nathanaelkane/vim-indent-guides'
 
 " File navigation
-"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-rooter'
-"Plug 'junegunn/fzf.vim'
-"Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
@@ -378,28 +361,9 @@ Plug 'majutsushi/tagbar'
 Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
 
 
-" Error checking
-"
-"Plug 'Shougo/deoplete.nvim'
-"Plug 'dense-analysis/ale'
-
 " Auto Complete
-"Plug 'autozimu/LanguageClient-neovim', {
-    "\ 'branch': 'next',
-    "\ 'do': 'bash install.sh',
-"    \ }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"if has('nvim')
-  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-  "Plug 'Shougo/deoplete.nvim'
-  "Plug 'roxma/nvim-yarp'
-  "Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-
 Plug 'wellle/tmux-complete.vim'
-
-
 " Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -412,7 +376,6 @@ Plug 'theniceboy/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
 Plug 'fszymanski/fzf-gitignore', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive' " gv dependency
 Plug 'junegunn/gv.vim' " gv (normal) to show git log
-"Plug 'mhinz/vim-signify'
 Plug 'airblade/vim-gitgutter'
 
 " Tex
@@ -420,8 +383,6 @@ Plug 'lervag/vimtex'
 
 " CSharp
 Plug 'OmniSharp/omnisharp-vim'
-Plug 'ctrlpvim/ctrlp.vim' , { 'for': ['cs', 'vim-plug'] } " omnisharp-vim dependency
-Plug 'ctrlpvim/ctrlp.vim'
 
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 Plug 'elzr/vim-json'
@@ -458,8 +419,6 @@ Plug 'scrooloose/nerdcommenter' " in <LEADER>cc to comment current line ,<LEADER
 Plug 'AndrewRadev/switch.vim' " gs to switch
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
-Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
-Plug 'tpope/vim-capslock'	" Ctrl+L (insert) to toggle capslock
 Plug 'easymotion/vim-easymotion'
 "Plug 'skywind3000/asyncrun.vim'
 
@@ -490,12 +449,9 @@ Plug 'mhinz/vim-startify'
 "Plug 'itchyny/calendar.vim'
 
 
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'nathanaelkane/vim-indent-guides'
 " Other useful utilities
-Plug 'tpope/vim-eunuch' " do stuff like :SudoWrite
+"Plug 'tpope/vim-eunuch' " do stuff like :SudoWrite
 Plug 'lambdalisue/suda.vim' " do stuff like :sudowrite
-
 " Dependencies
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
@@ -513,25 +469,8 @@ call plug#end()
 
 let g:deoplete#enable_at_startup = 1
 set tags=./.tags;,.tags
-function SetLSPShortcuts()
-  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
-  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
-  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
-endfunction()
 
-augroup LSP
-  autocmd!
-  autocmd FileType cpp,c call SetLSPShortcuts()
-augroup END
 
-"autocmd BufNew,BufEnter *.py execute "silent! CocDisable"
 "最后啰嗦两句，少用 CTRL-] 直接在当前窗口里跳转到定义，多使用 CTRL-W ] 用新窗口打开并查看光标下符号的定义，或者 CTRL-W } 使用 preview 窗口预览光标下符号的定义。
 "
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
@@ -562,27 +501,6 @@ set lazyredraw
 set regexpengine=1
 
 set hidden
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-	\ 'c': ['/usr/local/bin/ccls'],
-	\ 'cpp': ['/usr/local/bin/ccls'],
-	\ 'objc': ['/usr/local/bin/ccls'],
-    \ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-"
-" ===
-" === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
-" ===
 
 " ===
 " === Dress up my vim
@@ -742,14 +660,6 @@ let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
 
-
-" ===
-" === Python-syntax
-" ===
-"let g:python_highlight_all = 1
-" let g:python_slow_sync = 0
-
-
 " ===
 " === vim-table-mode
 " ===
@@ -761,14 +671,14 @@ let g:table_mode_cell_text_object_i_map = 'k<Bar>'
 " ===
 " === FZF
 " ===
-noremap <C-p> :FZF<CR>
-noremap <C-p> :Files<CR>
-noremap <C-f> :Rg<CR>
-noremap <C-h> :History<CR>
-"noremap <C-t> :BTags<CR>
-noremap <C-l> :Lines<CR>
-noremap <C-w> :Buffers<CR>
-noremap <leader>; :History:<CR>
+"noremap <C-p> :FZF<CR>
+"noremap <C-p> :Files<CR>
+"noremap <C-f> :Rg<CR>
+"noremap <C-h> :History<CR>
+""noremap <C-t> :BTags<CR>
+"noremap <C-l> :Lines<CR>
+"noremap <C-w> :Buffers<CR>
+"noremap <leader>; :History:<CR>
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
@@ -861,7 +771,7 @@ let g:bookmark_location_list = 1
 " ===
 " === Undotree
 " ===
-noremap L :UndotreeToggle<CR>
+noremap U :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -878,22 +788,22 @@ endfunc
 " ==
 " == vim-multiple-cursor
 "" ==
-"let g:multi_cursor_use_default_mapping=0
-"let g:multi_cursor_start_word_key = '<c-k>'
-"let g:multi_cursor_select_all_word_key = '<a-k>'
-"let g:multi_cursor_start_key = 'g<c-k>'
-"let g:multi_cursor_select_all_key = 'g<a-k>'
-"let g:multi_cursor_next_key = '<c-k>'
-"let g:multi_cursor_prev_key = '<c-p>'
-"let g:multi_cursor_skip_key = '<C-x>'
-"let g:multi_cursor_quit_key = '<Esc>'
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key = '<c-k>'
+let g:multi_cursor_select_all_word_key = '<a-k>'
+let g:multi_cursor_start_key = 'g<c-k>'
+let g:multi_cursor_select_all_key = 'g<a-k>'
+let g:multi_cursor_next_key = '<c-k>'
+let g:multi_cursor_prev_key = '<c-p>'
+let g:multi_cursor_skip_key = '<C-x>'
+let g:multi_cursor_quit_key = '<Esc>'
 
 
 " Startify
 let g:startify_lists = [
-			\ { 'type': 'files',		 'header': ['	 MRU']						},
-			\ { 'type': 'bookmarks', 'header': ['	 Bookmarks']			},
-			\ { 'type': 'commands',	'header': ['	 Commands']			 },
+			\ { 'type': 'files',		 'header': ['	 MRU']				},
+			\ { 'type': 'bookmarks',     'header': ['	 Bookmarks']		},
+			\ { 'type': 'commands',	     'header': ['	 Commands']	    	},
 			\ ]
 
 
@@ -913,16 +823,16 @@ let g:far#mapping = {
 "let g:VM_default_mappings = 0
 let g:VM_leader = {'default': ',', 'visual': ',', 'buffer': ','}
 let g:VM_maps = {}
-let g:VM_custom_motions  = {'n': 'h', 'i': 'l', 'u': 'k', 'e': 'j', 'N': '0', 'I': '$', 'h': 'e'}
-let g:VM_maps['i']         = 'k'
-let g:VM_maps['I']         = 'K'
+let g:VM_custom_motions  = {'n': 'n', 'i': 'I', 'u': 'u', 'e': 'e', 'N': 'N', 'I': 'I', 'h': 'h'}
+let g:VM_maps['i']         = 'i'
+let g:VM_maps['I']         = 'I'
 let g:VM_maps['Find Under']         = '<C-k>'
 let g:VM_maps['Find Subword Under'] = '<C-k>'
 let g:VM_maps['Find Next']         = ''
 let g:VM_maps['Find Prev']         = ''
 let g:VM_maps['Remove Region'] = 'q'
 let g:VM_maps['Skip Region'] = '<c-n>'
-let g:VM_maps["Undo"]      = 'l'
+let g:VM_maps["Undo"]      = 'u'
 let g:VM_maps["Redo"]      = '<C-r>'
 
 
@@ -1109,17 +1019,6 @@ let g:EasyMotion_smartcase = 1
 " 'f{char} to move to {char}
 map f <Plug>(easymotion-bd-f)
 nmap f <Plug>(easymotion-overwin-f)
-map \; <Plug>(easymotion-prefix)
-" 's{char}{char} to move to {char}{char}
-"nmap 's <Plug>(easymotion-overwin-f2)
-" Move to line
-"map 'l <Plug>(easymotion-bd-jk)
-"nmap 'l <Plug>(easymotion-overwin-line)
-" Move to word
-"map  'w <Plug>(easymotion-bd-w)
-"nmap 'w <Plug>(easymotion-overwin-w)
-
-
 
 
 
@@ -1134,5 +1033,6 @@ exec "nohlsearch"
 if has_machine_specific_file == 0
 	exec "e ~/.config/nvim/_machine_specific.vim"
 endif
-"NERDTreeToggle
-"endif
+
+endif " if !exists('g:vscode')
+
