@@ -8,7 +8,7 @@
                                                             |___/                                    
 ```
 ### Supported Launage
-- c/c++/python/bash/markdown
+- c/c++/python/go/bash/markdown
 
 <div align="center">
 <img  src="./res/c-lang.png"/> <br/>
