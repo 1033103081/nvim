@@ -19,31 +19,39 @@ endfunction
 
 
 func! Setupshell()
-	call append(0,"#!/usr/bin/env sh")
-	call append(1,"")
+	call append(0,["#!/usr/bin/env sh",
+				\ "ccred=\"\\033[0;31m\"", 
+				\ "ccgreen=\"\\033[0;32m\"",    
+				\ "ccyellow=\"\\033[0;33m\"",   
+				\ "ccwhite=\"\\033[0;37m\"",    ])
 endfunction
-
 
 function! Setupmake()
-	call append(0,"#!/usr/bin/env make")
-	call append(1,"ccred=$(shell echo \"\\033[0;31m\")")
-	call append(2,"ccgreen=$(shell echo \"\\033[0;32m\")")
-	call append(3,"ccyellow=$(shell echo \"\\033[0;33m\")")
-	call append(4,"ccwhite=$(shell echo \"\\033[0;37m\")")
-	call append(5,"# $(error ${ccred} error message ${ccwhite})")
-	call append(6,"# $(info ${ccyellow} info message ${ccwhite})")
-	call append(7,"")
-	call append(8,"")
-	call append(9,"#check if file exists")
-	call append(10,"#ifneq (\"$(wildcard  FILENAME)\",\"\")")
-	call append(11,"##file exists; use space insted of tab here")
-	call append(12,"#endif ")
-	call append(13,"")
-	call append(14,"use ${LINENO} to locate the error message location")
-
-
+	call append(0,["#!/usr/bin/env make",
+				\ "ccred=$(shell echo \"\\033[0;31m\")",
+				\ "ccgreen=$(shell echo \"\\033[0;32m\")",
+				\ "ccyellow=$(shell echo \"\\033[0;33m\")",
+				\ "ccwhite=$(shell echo \"\\033[0;37m\")",
+				\ "# $(error ${ccred} error message ${ccwhite})",
+				\ "# $(info ${ccyellow} info message ${ccwhite})",
+				\ "",
+				\ "",
+				\ "#check if file exists",
+				\ "#ifneq (\"$(wildcard  FILENAME)\",\"\")",
+				\ "##file exists; use space insted of tab here",
+				\ "#endif ",
+				\ "",
+				\ "#use ${LINENO} to locate the error message location",])
 endfunction
+
+function! Setuppython()
+	call append(0,["#!/usr/bin/env python3"])
+	
+endfunction
+
+
 
 autocmd BufNewFile *.sh call Setupshell()
 autocmd BufNewFile Makefile call Setupmake()
+autocmd BufNewFile *.py call Setuppython()
 autocmd Filetype markdown call Setupmarkdown()

@@ -23,7 +23,7 @@
 - ide
 
 ## Index
-- [Installation](#Installation)
+- [Installation](#installation)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
 	- [1. Basic Keyboard Shortcuts](#1-basic-editor-features)
 		- [1.1 The Most Basics](#1.1-the-most-basics)
@@ -78,9 +78,9 @@
 **Debian**
 ``` sh 
  #launch_proxy if necessary
- sudo apt install-y nodejs ccls npm python3-pip ctags build-essential
- npm install -g neovim
- pip install neovim
+ sudo apt install -y nodejs ccls npm python3-pip ctags build-essential
+ npm install -g neovim bash-language-server
+ pip install neovim virtualenv
  git clone https://github.com/ioperations/nvim ~/.config/nvim
  nvim +PlugInstall +UpdateRemotePlugins +checkhealth
  #fill in the blacks nvim provided
@@ -324,4 +324,4 @@ Press `g` `y` to toggle Goyo
 `,w` to go to the next `<++>` (placeholder) and then press `Enter` for you
 
 # Suggestions
-- Still,If you work in python-lang dev process use [Anaconda](https://anaconda.com) to have multiple python env
+- Still,If you work in python-lang dev process use [virtualenv] to have multiple python env
