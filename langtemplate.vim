@@ -41,7 +41,13 @@ function! Setupmake()
 				\ "##file exists; use space insted of tab here",
 				\ "#endif ",
 				\ "",
-				\ "#use ${LINENO} to locate the error message location",])
+				\ "#use ${LINENO} to locate the error message location",
+				\ "",
+				\ "",
+				\ "",
+				\ "cmake:",
+				\ "\tcmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..",])
+
 endfunction
 
 function! Setuppython()
