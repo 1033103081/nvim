@@ -22,16 +22,26 @@
 			"ignoredRootPaths": []
 		},
 		"ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json"],
-      "initializationOptions": {
-         "cache": {
-           "directory": ".ccls-cache",
-		   "retainInMemory":0
-         }
-       }
-    }
+			"command": "ccls",
+			"filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+			"rootPatterns": [".ccls", "compile_commands.json"],
+			"initializationOptions": {
+				"cache": {
+					"directory": ".ccls-cache",
+					"retainInMemory":0
+				}
+			}
+		},
+		"cmake": {
+			"command": "cmake-language-server",
+			"filetypes": ["cmake"],
+			"rootPatterns": [
+				"build/"
+			],
+			"initializationOptions": {
+				"buildDirectory": "build"
+			}
+		}
 	}
-}
 
+}
