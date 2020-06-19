@@ -68,9 +68,9 @@
 **Mac**
 ``` sh 
  #launch_proxy if necessary
- brew install nodejs ccls npm python ctags
- npm install -g neovim
- pip install neovim
+ brew install nodejs ccls npm python ctags ranger
+ npm install -g neovim bash-language-server
+ pip install neovim virtualenv cmake-language-server 
  git clone https://github.com/ioperations/nvim ~/.config/nvim
  nvim +PlugInstall +UpdateRemotePlugins +checkhealth
  #fill in the blacks nvim provided
@@ -78,11 +78,11 @@
 **Debian**
 ``` sh 
  #launch_proxy if necessary
- sudo apt install -y nodejs ccls npm python3-pip ctags build-essential
+ sudo apt install -y nodejs ccls npm python3-pip ctags build-essential ranger
  npm install -g neovim bash-language-server
- pip install neovim virtualenv
+ pip install neovim virtualenv cmake-language-server
  git clone https://github.com/ioperations/nvim ~/.config/nvim
- nvim +PlugInstall +UpdateRemotePlugins +checkhealth
+ nvim +PlugInstall +UpdateRemotePlugins +checkhealth [ +GoInstallBinaries ]
  #fill in the blacks nvim provided
 ```
 
