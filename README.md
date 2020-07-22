@@ -17,11 +17,6 @@
 (python dev ide)
 </div>
 
-## feature
-- neovim
-- workflow
-- ide
-
 ## Index
 - [Installation](#installation)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
@@ -89,35 +84,39 @@
 
 
 ## Keyboard Shortcuts
-### 1 Basic Editor Features
+<span style="color:red;font-size:200%">
+ Basic Editor Features
+</span>
+
 #### 1.1 The Most Basics
-**`Q`** : quit current vim window, equals to command `:q`
-**`S`** : save the current file, equals to command `:w`
+**<kbd>Q</kbd>** : quit current vim window, equals to command `:q`
+  
+**<kbd>S</kbd>** : save the current file, equals to command `:w`
 
 
 #### 1.2 Basic Cursor Movement
 | Shortcut   | Action                                                    |
-|------------|-----------------------------------------------------------|
-| `k`        | Cursor up a terminal line                                 |
-| `j`        | Cursor down a terminal line                               |
-| `h`        | Cursor left                                               |
-| `l`        | Cursor right                                              |
-| `0`        | Cursor to the start of the line                           |
-| `$`        | Cursor to the end of the line                             |
+|------------|------------------------------------------------------|
+| <kbd>k</kbd>        | Cursor up a terminal line                                 |
+| <kbd>j</kbd>        | Cursor down a terminal line                               |
+| <kbd>h</kbd>        | Cursor left                                               |
+| <kbd>l</kbd>        | Cursor right                                              |
+| <kbd>0</kbd>        | Cursor to the start of the line                           |
+| <kbd>$</kbd>        | Cursor to the end of the line                             |
 | `Ctrl` `y` | Move the view port up 5 lines without moving the cursor   |
 | `Ctrl` `e` | Move the view port down 5 lines without moving the cursor |
-| `w`        | Move to the start of next word                            |
-| `b`        | Move to the start of this word                            |
-| `e`        | Move to the end of this word                              |
-| `W`        | Move cursor five words forward                            |
-| `B`        | Move cursor five words backword                           |
+| <kbd>w</kbd>        | Move to the start of next word                            |
+| <kbd>b/kbd        | Move to the start of this word                            |
+| <kbd>e</kbd>        | Move to the end of this word                              |
+| <kbd>W</kbd>        | Move cursor five words forward                            |
+| <kbd>B</kbd>        | Move cursor five words backword                           |
 
 #### 1.4 Basic Text Manipulating Commands in Normal Mode
 | Shortcut        | Action                                |
 |-----------------|---------------------------------------|
-| `u`             | **undo**                              |
-| `<`             | Un-indent                             |
-| `>`             | Indent                                |
+| <kbd>u</kbd>      | **undo**                              |
+| <kbd><</kbd>     | Un-indent                             |
+| <kbd>></kbd>    | Indent                                |
 | `Ctrl` `a`      | Increase the number under cursor by 1 |
 | `Ctrl` `x`      | Decrease the number under cursor by 1 |
 | `SPACE` `SPACE` | Goto the next placeholder (`<++>`)    |
@@ -137,7 +136,7 @@
 | `\` `p`         | Show the path of the current file      |
 | `r` `!{SHELL_CMD}` |  return the SHELL_CMD result to current line     |
 
-### 2 Window Management
+## 2 Window Management
 #### 2.1 Creating Window Through Split Screen
 | Shortcut    | Action                                                                      |
 |-------------|-----------------------------------------------------------------------------|
@@ -325,3 +324,8 @@ Press `g` `y` to toggle Goyo
 
 # Suggestions
 - Still,If you work in python-lang dev process use [virtualenv] to have multiple python env
+
+## vim in batch editing
+<div align=center >
+<img src="./res/batchvim.gif">
+</div>
