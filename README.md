@@ -9,7 +9,7 @@ The following will install this config if you have an existing config it will mo
 This script only supports Mac, Debian and Arch
 
 ```
-bash <(curl -s https://git.io/JTvvG)
+bash <(curl -s https://git.io/nvimIns)
 ```
 
 ## Install Neovim
