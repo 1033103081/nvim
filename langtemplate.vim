@@ -55,8 +55,48 @@ function! Setuppython()
 	
 endfunction
 
+function! SetupCppTest()
+	call append(0,["#include <iostream>",
+				\ "#include <gtest/gtest.h>",
+				\ "",
+				\ "TEST(testName,testNum){",
+				\ "",
+				\ "}",
+				\ "",
+				\ "int main(int argc, char *argv[])",
+				\ "{",
+				\ "    testing::InitGoogleTest(&argc,argv);",
+				\ "    return RUN_ALL_TESTS();",
+				\ "}",])
+endfunction
+
+function! SetupCppBench()
+	call append(0,["#include <benchmark/benchmark.h>",
+				\ "",
+				\ "static void BM_StringCreation(benchmark::State& state) {",
+				\ "for (auto _ : state)",
+				\ "    std::string empty_string;",
+				\ "}",
+				\ "// Register the function as a benchmark",
+				\ "BENCHMARK(BM_StringCreation);",
+				\ "",
+				\ "// Define another benchmark",
+				\ "static void BM_StringCopy(benchmark::State& state) {",
+				\ "    std::string x = \"hello\";",
+				\ "    for (auto _ : state){",
+				\ "        std::string copy(x);",
+				\ "    }",
+				\ "}",
+				\ "",
+				\ "BENCHMARK(BM_StringCopy);",
+				\ "",
+				\ "BENCHMARK_MAIN();",])
+
+endfunction
 
 
+autocmd BufNewFile *_test.cpp call SetupCppTest()
+autocmd BufNewFile *_bench.cpp call SetupCppBench()
 autocmd BufNewFile *.sh call Setupshell()
 autocmd BufNewFile Makefile call Setupmake()
 autocmd BufNewFile *.py call Setuppython()

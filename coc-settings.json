@@ -1,47 +1,79 @@
 {
-	"yank.enableCompletion" : true,
-	"diagnostic.virtualText": false,
-	"codeLens.enable": true,
-	"suggest.detailMaxLength": 60,
-	"pyls.enable":false,
-	"python.jediEnabled":false,
-	"languageserver": {
-		"lua": {
-			"command": "lua-lsp",
-			"filetypes": ["lua"]
-		},
-		"golang": {
-			"command": "gopls",
-			"rootPatterns": ["go.mod"],
-			"filetypes": ["go"]
-		},
-		"bash": {
-			"command": "bash-language-server",
-			"args": ["start"],
-			"filetypes": ["sh"],
-			"ignoredRootPaths": []
-		},
-		"ccls": {
-			"command": "ccls",
-			"filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
-			"rootPatterns": [".ccls", "compile_commands.json"],
-			"initializationOptions": {
-				"cache": {
-					"directory": ".ccls-cache",
-					"retainInMemory":0
-				}
-			}
-		},
-		"cmake": {
-			"command": "cmake-language-server",
-			"filetypes": ["cmake"],
-			"rootPatterns": [
-				"build/"
-			],
-			"initializationOptions": {
-				"buildDirectory": "build"
-			}
-		}
-	}
-
+  "yank.enableCompletion": true,
+  "suggest.completionItemKindLabels": {
+    "text": "t",
+    "method": "m",
+    "function": "f"
+  },
+  "diagnostic.virtualText": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "javascript",
+    "graphql",
+    "html",
+    "yaml",
+    "json",
+    "python",
+    "java"
+  ],
+  "coc.preferences.hoverTarget": "float",
+  "suggest.detailMaxLength": 60,
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.enablePreview": true,
+  "suggest.snippetIndicator": "⭐︎",
+  "tslint.trace.server": "verbose",
+  "python.jediEnabled": false,
+  "tsserver.trace.server": "verbose",
+  "javascript.validate.enable": false,
+  "languageserver": {
+    "lua": {
+      "command": "lua-lsp",
+      "filetypes": ["lua"]
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": []
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json"],
+      "trace.server": "verbose",
+      "initializationOptions": {
+        "cache": {
+          "directory": ".ccls-cache",
+          "retainInMemory": 0
+        },
+        "highlight": {
+          "lsRanges": true
+        },
+        "clang": {
+          "extraArgs": [
+            "-isystem /usr/local/Cellar/llvm/10.0.1_1/include/c++/v1/"
+          ]
+        }
+      }
+    },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": ["cmake"],
+      "rootPatterns": ["build/"],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
+    }
+  },
+  "snippets.ultisnips.directories": [
+    "UltiSnips",
+    "$HOME/.config/nvim/UltiSnips",
+    "$HOME/.config/nvim/autoload/plugged/vim-snippets/UltiSnips/"
+  ]
 }
