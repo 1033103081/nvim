@@ -39,7 +39,7 @@ bash <(curl -s https://git.io/JTvvG)
 ## Clone this repo into your config
 
 ```
-git clone https://github.com/ioperations/nvim.git ~/.config/nvim
+git clone https://github.com/1033103081/nvim.git ~/.config/nvim
 ```
 
 ## Install python & node support
